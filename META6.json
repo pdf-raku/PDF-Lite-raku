@@ -1,0 +1,13 @@
+{
+    "perl"        : "6.*",
+    "name"        : "PDF::Lite",
+    "version"     : "0.0.1",
+    "api"         : "PDF-1.7",
+    "auth"        : "github:p6-pdf",
+    "description" : "Minimal class for the creatin and editing of PDF documents",
+    "depends"     : [ "PDF::Content", "PDF" ],
+    "source-url"  : "git://github.com/p6-pdf/p6-PDF-Lite.git",
+    "provides"    : {
+        "PDF::Lite"                     : "lib/PDF/Lite.pm"
+     }
+}
