@@ -19,7 +19,7 @@ class PDF::Lite
     use PDF::Content::ResourceDict;
     use PDF::Content::XObject;
 
-    role ResourceDict
+    my role ResourceDict
 	does PDF::DAO::Tie::Hash
 	does PDF::Content::ResourceDict {
             use PDF::Content::Font;
@@ -40,7 +40,7 @@ class PDF::Lite
         PDF::Content::Page.xobject-form(:coerce(XObject-Form), |c);
     }
 
-    role Page
+    my role Page
 	does PDF::DAO::Tie::Hash
 	does PDF::Content::Page
 	does PDF::Content::PageNode {
@@ -61,7 +61,7 @@ class PDF::Lite
 	}
     }
 
-    role Pages
+    my role Pages
 	does PDF::DAO::Tie::Hash
 	does PDF::Content::PageNode
 	does PDF::Content::PageTree {
@@ -75,7 +75,7 @@ class PDF::Lite
         has UInt $.Count       is entry(:required);
     }
 
-    role Catalog
+    my role Catalog
 	does PDF::DAO::Tie::Hash {
 	has Pages $.Pages is entry(:required, :indirect);
 
