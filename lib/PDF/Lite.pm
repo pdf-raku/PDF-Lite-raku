@@ -30,7 +30,7 @@ class PDF::Lite
 
     my role XObject-Form
         does PDF::DAO::Tie::Hash
-        does PDF::Content::XObject
+        does PDF::Content::XObject['Form']
         does PDF::Content::Resourced
         does PDF::Content::Graphics {
             has ResourceDict $.Resources is entry;
