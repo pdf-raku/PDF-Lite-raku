@@ -20,7 +20,7 @@ $page.text: {
 }
 
 $page.graphics: {
-    my $img = .load-image: "t/images/basn0g01.png";
+    my $img = .load-image: "t/images/lightbulb.gif";
     .do($img, 100, 100);
 }
 

@@ -151,7 +151,7 @@ sub draw-curve1($gfx) {
 draw-curve1($page.gfx);
 
 # ------------------------
-# Alternative 2: draw from content instructions:
+# Alternative 2: draw from content instructions string:
 
 sub draw-curve2($gfx) {
     $gfx.ops: q:to"--END--"
