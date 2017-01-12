@@ -6,6 +6,7 @@ use PDF;
 class PDF::Lite
     is PDF {
 
+    use PDF::DAO;
     use PDF::DAO::Tie;
     use PDF::DAO::Tie::Hash;
 
@@ -37,7 +38,16 @@ class PDF::Lite
     }
 
     method xobject-form(|c) {
-        PDF::Content::Page.xobject-form(:coerce(XObject-Form), |c);
+        my $stream = PDF::Content::Page.xobject-form(|c);
+        PDF::DAO.coerce($stream,  XObject-Form);
+        $stream;
+    }
+
+    method tiling-pattern(|c) {
+        my constant Pattern = XObject-Form; # structurally identical
+        my $stream = PDF::Content::Page.tiling-pattern(|c);
+        PDF::DAO.coerce($stream, Pattern);
+        $stream;
     }
 
     my role Page
