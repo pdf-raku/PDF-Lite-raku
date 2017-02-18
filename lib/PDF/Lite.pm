@@ -1,6 +1,6 @@
 use v6;
 
-use PDF;
+use PDF:ver(v0.2.1..*);
 
 #| A minimal class for manipulating PDF graphical content
 class PDF::Lite
@@ -12,6 +12,7 @@ class PDF::Lite
 
     use PDF::DAO::Stream;
 
+    use PDF::Content:ver(v0.0.2..*);
     use PDF::Content::Graphics;
     use PDF::Content::Page;
     use PDF::Content::PageNode;
@@ -40,14 +41,12 @@ class PDF::Lite
     method xobject-form(|c) {
         my $stream = PDF::Content::Page.xobject-form(|c);
         PDF::DAO.coerce($stream,  XObject-Form);
-        $stream;
     }
 
     method tiling-pattern(|c) {
         my constant Pattern = XObject-Form; # structurally identical
         my $stream = PDF::Content::Page.tiling-pattern(|c);
         PDF::DAO.coerce($stream, Pattern);
-        $stream;
     }
 
     my role Page
