@@ -6,7 +6,7 @@
     "auth"        : "github:p6-pdf",
     "description" : "Minimal class for the creation and editing of PDF documents",
     "depends"     : [ "PDF::Content", "PDF" ],
-    "source-url"  : "git://github.com/p6-pdf/p6-PDF-Lite.git",
+    "source-url"  : "git://github.com/p6-pdf/PDF-Lite-p6.git",
     "provides"    : {
         "PDF::Lite"                     : "lib/PDF/Lite.pm"
      }
