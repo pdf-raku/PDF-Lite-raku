@@ -28,20 +28,31 @@ $page.graphics: {
 # should wrap this in 'q' .. 'Q' when re-read
 $page.gfx.strict = False;
 $page.gfx.SetStrokeRGB(.3, .4, .5);
+is-json-equiv $page.gfx.content-dump[0..6], (
+    "BT",
+    "1 0 0 1 200 200 Tm",
+    "/F1 18 Tf",
+    "(Lorem ipsum dolor sit amet,) Tj",
+    "19.8 TL",
+    "T*",
+    "(consectetur adipiscing elit,) Tj",
+    ),
+    'presave graphics (head)';
 
 lives-ok { $pdf.save-as("t/lite.pdf") }, 'save-as';
 
 throws-like { $pdf.unknown-method }, X::Method::NotFound, '$pdf unknown method';
 
 lives-ok { $pdf = PDF::Lite.open("t/lite.pdf") }, 'open';
-is-json-equiv $pdf.page(1).gfx.ops[0..6], (
-    :q[], 
-    :BT[],
-    :Tm[:int(1), :int(0), :int(0), :int(1), :int(200), :int(200)],
-    :Tf[:name<F1>, :int(18)],
-    :TL[:real(19.8)],
-    :Tj[:literal("Lorem ipsum dolor sit amet,")],
-    "T*" => [],), 'reloaded graphics (head)';
+is-json-equiv $pdf.page(1).gfx.content-dump[0..6], (
+    "q",
+    "BT",
+    "1 0 0 1 200 200 Tm",
+    "/F1 18 Tf",
+    "(Lorem ipsum dolor sit amet,) Tj",
+    "19.8 TL",
+    "T*",
+    ), 'reloaded graphics (head)';
 
 is-json-equiv $pdf.page(1).gfx.ops[*-2..*], (
     :RG[:real(.3), :real(.4), :real(.5)],
