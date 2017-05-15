@@ -100,15 +100,7 @@ class PDF::Lite
 	self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
     }
 
-    multi method page() {
-	self.?Root.?Pages
-    }
-
-    multi method page(|c) is default {
-	self.Root.Pages.page(|c)
-    }
-
-    for <add-page page-count> -> $meth {
+    for <page add-page page-count> -> $meth {
         $?CLASS.^add_method($meth,  method (|a) { self.Root.Pages."$meth"(|a) });
     }
 

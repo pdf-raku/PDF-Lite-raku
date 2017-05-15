@@ -73,7 +73,7 @@ $page.graphics: -> $gfx {
 
     $gfx.transform( :translate[285, 250]);
     $gfx.transform( :rotate(-10), :scale(1.5) );
-    $gfx.set-graphics( :transparency(.5) );
+    $gfx.FillAlpha = 0.5;
     $gfx.do($img, :width(150) );
 }
 $pdf.save-as: "t/sample-image.pdf";
