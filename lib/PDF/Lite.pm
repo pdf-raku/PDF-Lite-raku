@@ -9,7 +9,7 @@ class PDF::Lite
     use PDF::DAO;
     use PDF::DAO::Tie;
     use PDF::DAO::Tie::Hash;
-
+    use PDF::DAO::Delegator;
     use PDF::DAO::Stream;
 
     use PDF::Content:ver(v0.0.2..*);
@@ -30,24 +30,32 @@ class PDF::Lite
             has PDF::DAO::Dict $.ExtGState is entry;
     }
 
-    my role XObject-Form
-        does PDF::DAO::Tie::Hash
+    my class XObject-Form
+        is PDF::DAO::Stream
         does PDF::Content::XObject['Form']
         does PDF::Content::Resourced
         does PDF::Content::Graphics {
             has ResourceDict $.Resources is entry;
     }
 
-    method xobject-form(|c) {
-        my $stream = PDF::Content::Page.xobject-form(|c);
-        PDF::DAO.coerce($stream,  XObject-Form);
+    my class XObject-Image
+        is PDF::DAO::Stream
+        does PDF::Content::XObject['Image'] {
     }
 
-    method tiling-pattern(|c) {
-        my constant Pattern = XObject-Form; # structurally identical
-        my $stream = PDF::Content::Page.tiling-pattern(|c);
-        PDF::DAO.coerce($stream, Pattern);
+    my class Delegator is PDF::DAO::Delegator {
+        use PDF::DAO::Util :from-ast;
+        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Form' given  .<Subtype>}) {
+            XObject-Form
+        }
+        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Image' given  .<Subtype>}) {
+            XObject-Image
+        }
+        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Pattern' given  .<Type>}) {
+            XObject-Form
+        }
     }
+    PDF::DAO.delegator = Delegator;
 
     my role Page
 	does PDF::DAO::Tie::Hash
@@ -64,10 +72,6 @@ class PDF::Lite
 
 	my subset StreamOrArray where PDF::DAO::Stream | Array;
 	has StreamOrArray $.Contents is entry;
-
-	method to-xobject(|c) {
-            PDF::Content::Page.to-xobject(self, :coerce(XObject-Form), |c);
-	}
     }
 
     my role Pages
