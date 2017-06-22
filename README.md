@@ -13,10 +13,15 @@ my $pdf = PDF::Lite.new;
 my $page = $pdf.add-page;
 $page.MediaBox = [0, 0, 200, 100];
 
-$page.text: {
-    .TextMove = [10, 10];
-    .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
-    .say: 'Hello, world!';
+$page.graphics: {
+    my $text-block = .text: {
+        .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
+        .TextMove = [10, 10];
+        .say: 'Hello, world';
+    }
+
+    my $img = .load-image: "t/images/lightbulb.gif";
+    .do($img, 20 + $text-block.width, 10);
 }
 
 my $info = $pdf.Info = {};
@@ -30,6 +35,9 @@ $pdf.save-as: "examples/hello-world.pdf";
 #### Text
 
 `.say` and `.print` are simple convenience methods for displaying simple blocks of text with optional line-wrapping, alignment and kerning.
+
+These methods return a text-block object which can be used to
+determine the actual width and height of the displayed text block;
 
 ```
 use PDF::Lite;
@@ -46,7 +54,8 @@ $page.text: -> $txt {
             
     $txt.font = $font, 12;
     # output a text box with left, top corner at (20, 100)
-    $txt.say( $para, :width(200), :height(150), :position[ :left(20), :top(100)] );
+    my $text-block = $txt.say( $para, :width(200), :position[ :left(20), :top(100)] );
+    say "text height: {$text-block.height}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
     $txt.say( $para, :width(200), :height(150), :align<right>, :kern, :position[450, 100] );
@@ -106,11 +115,10 @@ $page.MediaBox = [0, 0, 400, 120];
 $page.graphics: {
 
     $page.text: {
-	.TextMove = [10, 70];
+	.TextMove = [20, 70];
 	.font = [ .core-font('ZapfDingbats'), 24];
 	.WordSpacing = 16;
-	my $nbsp = "\c[NO-BREAK SPACE]";
-	.print("♠ ♣$nbsp");
+	.print("♠ ♣\c[NO-BREAK SPACE]");
 	.FillColor = :DeviceRGB[ 1, .3, .3];  # reddish
 	.say("♦ ♥");
     }
@@ -121,11 +129,11 @@ $page.graphics: {
 
     $page.text: {
 	 use PDF::Content::Ops :TextMode;
-	.font = ( $header-font, 12);
-	.TextRender = TextMode::OutlineText;
+	.font = ( $header-font, 18);
+	.TextRender = TextMode::FillOutlineText;
 	.LineWidth = .5;
-        .text-transform( :skew[0, 12] );
-	.text-transform( :translate[10, 30] );
+        .text-transform( :skew[0, -6], :translate[10, 30] );
+	.FillColor = :DeviceRGB[ .6, .7, .9];
 	.ShowText('Outline Slanted Text @(10,30)');
     }
 }
@@ -281,8 +289,7 @@ For a full list of operators, please see PDF::Content::Ops.
 
 ## Graphics State
 
-A number of variables are maintained that describe the graphics state. In many cases
-these may be set directly:
+A number of variables are maintained that describe the graphics state. In many cases these may be set directly:
 
 ```
 my $page = (require PDF::Lite).new.add-page;
@@ -294,18 +301,16 @@ $page.graphics: {
     my $face = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
     .font = [ $face, 12 ];
     .TextLeading = 12; # new-line advances 12 points
-    .TextMove = [10, 20];
-    .say("Sample Text");
+    .say("Sample Text", :position[10, 20]);
     # 'say' has updated the text position to the next line
-    dd .TextMove;
     .Restore; # restore previous graphics state
-
+    say .CharSpacing; # restored to 0
 }
 ```
 
 ## See also
 
-- [PDF](https://github.com/p6-pdf/PDF-p6) is based on PDF and has all of it methods available. This includes:
+- PDF::Lites is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
     - `save-as` to save to PDF or JSON
