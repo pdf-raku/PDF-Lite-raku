@@ -21,7 +21,7 @@ endobj
 4 0 obj <<
   /Type /Page
   /Contents 5 0 R
-  /MediaBox [ 0 0 595 842 ]
+  /MediaBox [ 0 0 200 100 ]
   /Parent 3 0 R
   /Resources <<
     /Font <<
@@ -32,10 +32,10 @@ endobj
 endobj
 
 5 0 obj <<
-  /Length 74
+  /Length 72
 >> stream
 BT
-  1 0 0 1 100 150 Tm
+  1 0 0 1 10 10 Tm
   /F1 16 Tf
   (Hello, world!) Tj
   17.6 TL
@@ -60,14 +60,14 @@ xref
 0000000132 00000 n 
 0000000198 00000 n 
 0000000353 00000 n 
-0000000480 00000 n 
+0000000478 00000 n 
 trailer
 <<
-  /ID [ <4386dc7bc3489e418b44434e3a168843> <4386dc7bc3489e418b44434e3a168843> ]
+  /ID [ <867b4841444e1643c74ca7767ce9dd84> <867b4841444e1643c74ca7767ce9dd84> ]
   /Info 1 0 R
   /Root 2 0 R
   /Size 7
 >>
 startxref
-598
+596
 %%EOF

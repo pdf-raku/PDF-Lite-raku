@@ -1,9 +1,6 @@
 use Test;
 plan 8;
 
-# ensure consistant document ID generation
-srand(123456);
-
 my $read-me = "README.md".IO.slurp;
 
 $read-me ~~ /^ $<waffle>=.*? +%% ["```" \n? $<code>=.*? "```" \n?] $/
@@ -13,6 +10,9 @@ for @<code> {
     my $snippet = ~$_;
     given $snippet {
 	default {
+            # ensure consistant document ID generation
+            srand(123456);
+
 	    # assume anything else is code.
 	    $snippet = $snippet.subst('DateTime.now;', 'DateTime.new( :year(2015), :month(12), :day(25) );' );
 	    # disable say

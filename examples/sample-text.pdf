@@ -16,7 +16,7 @@ endobj
 3 0 obj <<
   /Type /Page
   /Contents 4 0 R
-  /MediaBox [ 0 0 612 792 ]
+  /MediaBox [ 0 0 500 150 ]
   /Parent 2 0 R
   /Resources <<
     /Font <<
@@ -32,7 +32,7 @@ endobj
 >> stream
 BT
   /F1 12 Tf
-  1 0 0 1 20 250 Tm
+  1 0 0 1 20 100 Tm
   (Lorem ipsum dolor sit amet,) Tj
   13.2 TL
   T*
@@ -42,7 +42,7 @@ BT
   T*
   (et dolore magna aliqua.) Tj
   T*
-  1 0 0 1 450 250 Tm
+  1 0 0 1 450 100 Tm
   [ 12337 (Lorem ipsum dolor sit amet,) ] TJ
   T*
   [ 15007 (consectetur adipiscing elit, sed do) ] TJ
@@ -85,7 +85,7 @@ xref
 0000000985 00000 n 
 trailer
 <<
-  /ID [ <07c7c24ca8a73e762b7c37e931dd5e84> <07c7c24ca8a73e762b7c37e931dd5e84> ]
+  /ID [ <867b4841444e1643c74ca7767ce9dd84> <867b4841444e1643c74ca7767ce9dd84> ]
   /Root 1 0 R
   /Size 7
 >>
