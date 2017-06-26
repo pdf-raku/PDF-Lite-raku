@@ -39,11 +39,11 @@ is-json-equiv $page.gfx.content-dump[0..6], (
     ),
     'presave graphics (head)';
 
-lives-ok { $pdf.save-as("t/lite.pdf") }, 'save-as';
+lives-ok { $pdf.save-as("t/01-pdf-lite.pdf") }, 'save-as';
 
 throws-like { $pdf.unknown-method }, X::Method::NotFound, '$pdf unknown method';
 
-lives-ok { $pdf = PDF::Lite.open("t/lite.pdf") }, 'open';
+lives-ok { $pdf = PDF::Lite.open("t/01-pdf-lite.pdf") }, 'open';
 is-json-equiv $pdf.page(1).gfx.content-dump[0..6], (
     "q",
     "BT",

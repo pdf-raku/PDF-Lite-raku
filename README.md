@@ -146,12 +146,61 @@ $pdf.save-as: "examples/text-effects.pdf";
 
 Note: only the PDF core fonts are supported: Courier, Times, Helvetica, ZapfDingbats and Symbol.
 
-#### Forms
+## Forms and Patterns
 
-Forms are a reusable graphics component
+Forms are a reusable graphics component. They can be used whereever
+images can be used.
+
+A pattern can be used to fill an area with a repeating graphic.
+
+```
+use PDF::Lite;
+my $pdf = PDF::Lite.new;
+my $page = $pdf.add-page;
+$page.MediaBox = [0, 0, 400, 120];
+my $font = $page.core-font( :family<Helvetica> );
+
+$page.graphics: {
+    my $form = .xobject-form(:BBox[0, 0, 95, 25]);
+    $form.graphics: {
+        # Set a background color
+        .FillColor = :DeviceRGB[.8, .9, .9];
+        .Rectangle: |$form<BBox>;
+        .Fill;
+        .font = $font;
+        .FillColor = :DeviceRGB[ 1, .3, .3];  # reddish
+        .say("Simple Form", :position[2, 5]);
+    }
+     # display a simple form a couple of times
+    .do($form, 10, 10);
+    .transform: :translate(10,40), :rotate(.1), :scale(.75);
+    .do($form, 10, 10);
+}
 
 
-#### Colors and Patterns
+$page.graphics: {
+    my $pattern = .tiling-pattern(:BBox[0, 0, 25, 25], );
+    $pattern.graphics: {
+        # Set a background color
+        .FillColor = :DeviceRGB[.8, .8, .9];
+        .Rectangle: |$pattern<BBox>;
+        .Fill;
+        # Display an image
+        my $img = .load-image("t/images/lightbulb.gif");
+        .do($img, 6, 2 );
+    }
+    # fill a rectangle using this pattern
+    .FillColor = .use-pattern($pattern);
+    .Rectangle(125, 10, 200, 100);
+    .Fill;
+}
+
+$pdf.save-as: "examples/forms-and-patterns.pdf";
+
+```
+
+![forms-and-patterns.pdf](examples/.previews/forms-and-patterns-001.png)
+
 
 ### Resources and Reuse
 
@@ -173,10 +222,13 @@ my $xobj-with-text  = $pdf-with-text.page(1).to-xobject;
 my $xobj-with-images  = $pdf-with-images.page(1).to-xobject;
 
 $page.graphics: {
-     # scale up the image; use it as a background
-    .do($xobj-image, 6, 6, :width(500), :height(400) );
+    # scale up an image; use it as a semi-transparent background
+    .FillAlpha = 0.5; 
+    .do($xobj-image, 0, 0, :width(500), :height(400) );
+    };
 
-     # overlay pages; scale these down
+$page.graphics: {
+    # overlay pages; scale these down
     .do($xobj-with-text, 20, 100, :width(300) );
     .do($xobj-with-images, 300, 100, :width(200) );
 }
@@ -310,12 +362,12 @@ $page.graphics: {
 
 ## See also
 
-- PDF::Lites is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
+- PDF::Lite is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
     - `save-as` to save to PDF or JSON
     - `update` to perform an in-place incremental update of the PDF
     - `Info` to access document meta-data
 
-- [PDF::Content](https://github.com/p6-pdf/PDF-Content-p6) provides core graphics support. Please see the README for and PDF::Content::Ops POD a description of available operators and graphics.
+- PDF::Lite makes extensive use of [PDF::Content](https://github.com/p6-pdf/PDF-Content-p6). Please see the README for and PDF::Content::Ops POD a description of available operators and graphics.
 
