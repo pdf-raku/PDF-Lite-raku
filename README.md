@@ -343,7 +343,7 @@ Graphics can also be read from an existing PDF file:
 ```
 use PDF::Lite;
 my $pdf = PDF::Lite.open: "examples/hello-world.pdf";
-dd $pdf.page(1).gfx.ops;
+say $pdf.page(1).gfx.ops;
 ```
 
 For a full list of operators, please see the PDF::Content README file.
@@ -374,12 +374,13 @@ the `$*gfx` dynamic variable.
 
 ```
 use PDF::Lite;
+use PDF::Content::Ops :OpCode;
 my $pdf = PDF::Lite.open: "examples/hello-world.pdf";
 
 my &callback = sub ($op, *@args) {
    given $op {
-       when 'Tm' {
-           note "text matrix set to: {$*gfx.TextMatrix}";
+       when SetTextMatrix {
+           say "text matrix set to: {$*gfx.TextMatrix}";
        }
    }
 }
