@@ -346,30 +346,6 @@ my $pdf = PDF::Lite.open: "examples/hello-world.pdf";
 dd $pdf.page(1).gfx.ops;
 ```
 
-A renderer callback can be specifed. This will be called for each operationand has access to the graphics state.
-
-```
-use PDF::Lite;
-my $pdf = PDF::Lite.open: "examples/hello-world.pdf";
-
-my &callback = sub ($op, *@args) {
-   given $op {
-       when 'Tm' {
-           note "text matrix set to: {$*gfx.TextMatrix}";
-       }
-   }
-}
-$pdf.page(1).gfx(:&callback).ops;
-callback(sub ($op, *@args, :$gfx!) {
-   given $op {
-       when 'Tm' {
-           note "text matrix set to: {$gfx.TextMatrix}";
-       }
-   }
-})
-```
-
-
 For a full list of operators, please see the PDF::Content README file.
 
 ## Graphics State
@@ -391,6 +367,24 @@ $page.graphics: {
     .Restore; # restore previous graphics state
     say .CharSpacing; # restored to 0
 }
+```
+
+A renderer callback can be specified when reading content. This will be called for each graphics operation and has access to the graphics state, via
+the `$*gfx` dynamic variable.
+
+```
+use PDF::Lite;
+my $pdf = PDF::Lite.open: "examples/hello-world.pdf";
+
+my &callback = sub ($op, *@args) {
+   given $op {
+       when 'Tm' {
+           note "text matrix set to: {$*gfx.TextMatrix}";
+       }
+   }
+}
+$pdf.page(1).gfx(:&callback).ops;
+# text matrix set to: 1 0 0 1 10 10
 ```
 
 ## See also
