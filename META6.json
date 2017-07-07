@@ -2,6 +2,8 @@
     "perl"        : "6.*",
     "name"        : "PDF::Lite",
     "version"     : "0.0.1",
+    "tags"        : ["pdf"],
+    "license"     : "Artistic-2.0",
     "api"         : "PDF-1.7",
     "auth"        : "github:p6-pdf",
     "description" : "Minimal class for the creation and editing of PDF documents",
