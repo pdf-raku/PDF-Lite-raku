@@ -9,7 +9,7 @@ class PDF::Lite
     use PDF::DAO;
     use PDF::DAO::Tie;
     use PDF::DAO::Tie::Hash;
-    use PDF::DAO::Delegator;
+    use PDF::DAO::Loader;
     use PDF::DAO::Stream;
 
     use PDF::Content:ver(v0.0.2..*);
@@ -20,11 +20,12 @@ class PDF::Lite
     use PDF::Content::Resourced;    
     use PDF::Content::ResourceDict;
     use PDF::Content::XObject;
+    use PDF::Content::Font;
+    use PDF::DAO::Util :from-ast;
 
     my role ResourceDict
 	does PDF::DAO::Tie::Hash
 	does PDF::Content::ResourceDict {
-            use PDF::Content::Font;
             has PDF::Content::Font %.Font  is entry;
 	    has PDF::DAO::Stream %.XObject is entry;
             has PDF::DAO::Dict $.ExtGState is entry;
@@ -43,19 +44,18 @@ class PDF::Lite
         does PDF::Content::XObject['Image'] {
     }
 
-    my class Delegator is PDF::DAO::Delegator {
-        use PDF::DAO::Util :from-ast;
-        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Form' given  .<Subtype>}) {
+    my class Loader is PDF::DAO::Loader {
+        multi method load(Hash :$dict! where {from-ast($_) ~~ 'Form' given  .<Subtype>}) {
             XObject-Form
         }
-        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Image' given  .<Subtype>}) {
+        multi method load(Hash :$dict! where {from-ast($_) ~~ 'Image' given  .<Subtype>}) {
             XObject-Image
         }
-        multi method delegate(Hash :$dict! where {from-ast($_) ~~ 'Pattern' given  .<Type>}) {
+        multi method load(Hash :$dict! where {from-ast($_) ~~ 'Pattern' given  .<Type>}) {
             XObject-Form
         }
     }
-    PDF::DAO.delegator = Delegator;
+    PDF::DAO.loader = Loader;
 
     my role Page
 	does PDF::DAO::Tie::Hash

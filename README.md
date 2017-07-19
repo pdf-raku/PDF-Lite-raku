@@ -397,5 +397,7 @@ $pdf.page(1).gfx(:&callback).ops;
     - `update` to perform an in-place incremental update of the PDF
     - `Info` to access document meta-data
 
-- PDF::Lite makes extensive use of [PDF::Content](https://github.com/p6-pdf/PDF-Content-p6). Please see the README for and PDF::Content::Ops POD a description of available operators and graphics.
+- PDF::Lite makes extensive use of [PDF::Content](https://github.com/p6-pdf/PDF-Content-p6). Please see the [README](https://github.com/p6-pdf/PDF-Content-p6/blob/master/README.md) and PDF::Content::Ops POD a description of available operators and graphics.
+
+
 

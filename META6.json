@@ -10,6 +10,6 @@
     "depends"     : [ "PDF::Content", "PDF" ],
     "source-url"  : "git://github.com/p6-pdf/PDF-Lite-p6.git",
     "provides"    : {
-        "PDF::Lite"                     : "lib/PDF/Lite.pm"
+        "PDF::Lite" : "lib/PDF/Lite.pm"
      }
 }
