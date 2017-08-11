@@ -12,7 +12,7 @@ class PDF::Lite
     use PDF::DAO::Loader;
     use PDF::DAO::Stream;
 
-    use PDF::Content:ver(v0.0.2..*);
+    use PDF::Content:ver(v0.0.2+);
     use PDF::Content::Graphics;
     use PDF::Content::Page;
     use PDF::Content::PageNode;
