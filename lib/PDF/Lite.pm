@@ -1,6 +1,6 @@
 use v6;
 
-use PDF:ver(v0.2.1..*);
+use PDF:ver(v0.2.1+);
 
 #| A minimal class for manipulating PDF graphical content
 class PDF::Lite
