@@ -9,7 +9,7 @@
 use v6;
 use PDF::Lite;
 
-my $pdf = PDF::Lite.new;
+my PDF::Lite $pdf .= new;
 my $page = $pdf.add-page;
 $page.MediaBox = [0, 0, 200, 100];
 
@@ -166,7 +166,7 @@ $page.graphics: {
         # Set a background color
         .FillColor = :DeviceRGB[.8, .9, .9];
         .Rectangle: |$form<BBox>;
-        .Fill;
+        .paint: :fill;
         .font = $font;
         .FillColor = :DeviceRGB[ 1, .3, .3];  # reddish
         .say("Simple Form", :position[2, 5]);
@@ -184,7 +184,7 @@ $page.graphics: {
         # Set a background color
         .FillColor = :DeviceRGB[.8, .8, .9];
         .Rectangle: |$pattern<BBox>;
-        .Fill;
+        .paint: :fill;
         # Display an image
         my $img = .load-image("t/images/lightbulb.gif");
         .do($img, 6, 2 );
@@ -192,7 +192,7 @@ $page.graphics: {
     # fill a rectangle using this pattern
     .FillColor = .use-pattern($pattern);
     .Rectangle(125, 10, 200, 100);
-    .Fill;
+    .paint: :stroke, :fill;
 }
 
 $pdf.save-as: "examples/forms-and-patterns.pdf";

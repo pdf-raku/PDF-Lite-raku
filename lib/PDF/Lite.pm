@@ -70,6 +70,9 @@ class PDF::Lite
 	has Numeric @.TrimBox  is entry(:len(4));
 	has Numeric @.ArtBox   is entry(:len(4));
 
+        my subset NinetyDegreeAngle of Int where { $_ %% 90}
+        has NinetyDegreeAngle $.Rotate is entry(:inherit);
+
 	my subset StreamOrArray where PDF::DAO::Stream | Array;
 	has StreamOrArray $.Contents is entry;
 
@@ -110,7 +113,7 @@ class PDF::Lite
 	self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
     }
 
-    BEGIN for <page add-page page-count> -> $meth {
+    BEGIN for <page add-page add-pages delete-page insert-page page-count> -> $meth {
         $?CLASS.^add_method($meth,  method (|a) { self.Root.Pages."$meth"(|a) });
     }
 
