@@ -390,14 +390,14 @@ $pdf.page(1).gfx(:&callback).ops;
 
 ## See also
 
-- PDF::Lite is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
+- This module (PDF::Lite) is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
     - `save-as` to save to PDF or JSON
     - `update` to perform an in-place incremental update of the PDF
     - `Info` to access document meta-data
 
-- PDF::Lite makes extensive use of [PDF::Content](https://github.com/p6-pdf/PDF-Content-p6). Please see the [README](https://github.com/p6-pdf/PDF-Content-p6/blob/master/README.md) and PDF::Content::Ops POD a description of available operators and graphics.
+- [PDF::API6](https://github.com/p6-pdf/PDF-API6) is based on this module (PDF::Lite). Please see the [PDF::API6 Graphics Documentation](https://github.com/p6-pdf/PDF-API6#appendix-i-graphics) for a description of available operators and graphics, which are also applicable to this module.
 
 
 
