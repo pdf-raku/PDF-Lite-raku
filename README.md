@@ -13,13 +13,13 @@ my PDF::Lite $pdf .= new;
 my $page = $pdf.add-page;
 $page.MediaBox = [0, 0, 200, 100];
 
-$page.graphics: {
-    my $text-block = .text: {
-        .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
-        .TextMove = [10, 10];
-        .say: 'Hello, world';
-    }
+my $text-block = $page.text: {
+    .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
+    .text-position = [10, 10];
+    .say: 'Hello, world';
+}
 
+$page.graphics: {
     my $img = .load-image: "t/images/lightbulb.gif";
     .do($img, 20 + $text-block.width, 10);
 }
@@ -115,7 +115,7 @@ $page.MediaBox = [0, 0, 400, 120];
 $page.graphics: {
 
     $page.text: {
-	.TextMove = [20, 70];
+	.text-position = [20, 70];
 	.font = [ .core-font('ZapfDingbats'), 24];
 	.WordSpacing = 16;
 	.print("♠ ♣\c[NO-BREAK SPACE]");
@@ -123,7 +123,7 @@ $page.graphics: {
 	.say("♦ ♥");
     }
 
-    # Display outline, slanted text, using the ShowText (`Td`) operator:
+    # Display outline, slanted text
 
     my $header-font = $page.core-font( :family<Helvetica>, :weight<bold> );
 
@@ -134,7 +134,7 @@ $page.graphics: {
 	.LineWidth = .5;
         .text-transform( :skew[0, -6], :translate[10, 30] );
 	.FillColor = :DeviceRGB[ .6, .7, .9];
-	.ShowText('Outline Slanted Text @(10,30)');
+	.print('Outline Slanted Text @(10,30)');
     }
 }
 

@@ -11,7 +11,7 @@ my $page = $pdf.add-page;
 my $header-font = $page.core-font( :family<Helvetica>, :weight<bold> );
 
 $page.text: {
-    .TextMove = [200, 200];
+    .text-position = [200, 200];
     .font = [$header-font, 18];
     .say(:width(250),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
