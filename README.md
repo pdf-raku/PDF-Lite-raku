@@ -156,7 +156,9 @@ The companion module PDF::Font can be used to handle a wider range of fonts:
     my $pdf = PDF::Lite.new;
     my $page = $pdf.add-page;
     $page.MediaBox = [0, 0, 400, 120];
-    my $noto = PDF::Font.load-font: "t/fonts/NotoSans-Regular.ttf";
+    my $noto = PDF::Font.load-font: :file<t/fonts/NotoSans-Regular.ttf>;
+    # or lookup by font name (requires fontconfig)
+    # $noto = PDF::Font.load-font: :name<NotoSans-Regular>;
 
     $page.text: {
         .text-position = [10,100];
