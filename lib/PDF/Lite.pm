@@ -60,8 +60,7 @@ class PDF::Lite:ver<0.0.3>
         my subset NinetyDegreeAngle of Int where { $_ %% 90}
         has NinetyDegreeAngle $.Rotate is entry(:inherit);
 
-	my subset StreamOrArray where PDF::COS::Stream | Array;
-	has StreamOrArray $.Contents is entry;
+	has PDF::COS::Stream @.Contents is entry(:array-or-item);
     }
 
     my class Pages
