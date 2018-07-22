@@ -15,7 +15,9 @@ use PDF::Lite;
 
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 200, 100];
-my $page = $pdf.add-page;
+my PDF::Lite::Page $page = $pdf.add-page;
+constant X-Margin = 10;
+constant Padding = 10;
 
 my $text-block = $page.text: {
     .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
@@ -24,12 +26,13 @@ my $text-block = $page.text: {
 }
 
 $page.graphics: {
-    my $img = .load-image: "t/images/lightbulb.gif";
-    .do($img, 20 + $text-block.width, 10);
+    my PDF::Lite::XObject $img = .load-image: "t/images/lightbulb.gif";
+    .do($img, X-Margin + Padding + $text-block.width, 10);
 }
 
-my $info = $pdf.Info = {};
-$info.CreationDate = DateTime.now;
+with $pdf.Info //= {} {
+    .CreationDate = DateTime.now;
+}
 
 $pdf.save-as: "examples/hello-world.pdf";
 ```
@@ -45,9 +48,10 @@ determine the actual width and height of the displayed text block;
 
 ```
 use PDF::Lite;
+use PDF::Content::Text::Block;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 500, 150];
-my $page = $pdf.add-page;
+my PDF::Lite::Page $page = $pdf.add-page;
 my $font = $page.core-font( :family<Helvetica> );
 
 $page.text: -> $txt {
@@ -58,8 +62,8 @@ $page.text: -> $txt {
             
     $txt.font = $font, 12;
     # output a text box with left, top corner at (20, 100)
-    my $text-block = $txt.say( $para, :width(200), :position[ :left(20), :top(100)] );
-    say "text height: {$text-block.height}";
+    my PDF::Content::Text::Block $text-block = $txt.say( $para, :width(200), :position[ :left(20), :top(100)] );
+    note "text height: {$text-block.height}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
     $txt.say( $para, :width(200), :height(150), :align<right>, :kern, :position[450, 100] );
@@ -83,10 +87,10 @@ The `.do` method can them be used to render it.
 use PDF::Lite;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 450, 250];
-my $page = $pdf.add-page;
+my PDF::Lite::Page $page = $pdf.add-page;
 
 $page.graphics: -> $gfx {
-    my $img = $gfx.load-image("t/images/snoopy-happy-dance.jpg");
+    my PDF::Lite::XObject $img = $gfx.load-image("t/images/snoopy-happy-dance.jpg");
     $gfx.do($img, 50, 40, :width(150) );
 
     # displays the image again, semi-transparently with translation, rotation and scaling
@@ -113,7 +117,7 @@ use PDF::Lite;
 use PDF::Content::Color :rgb;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 400, 120];
-my $page = $pdf.add-page;
+my PDF::Lite::Page $page = $pdf.add-page;
 
 $page.graphics: {
 
@@ -157,7 +161,7 @@ The companion module PDF::Font::Loader can be used to access a wider range of fo
     use PDF::Font::Loader :load-font;
     my PDF::Lite $pdf .= new;
     $pdf.media-box = [0, 0, 400, 120];
-    my $page = $pdf.add-page;
+    my PDF::Lite::Page $page = $pdf.add-page;
     my $noto = load-font( :file<t/fonts/NotoSans-Regular.ttf> );
     # or lookup by font name (requires fontconfig)
     # $noto = load-font: :name<NotoSans>;
@@ -184,11 +188,11 @@ use PDF::Lite;
 use PDF::Content::Color :rgb;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 400, 120];
-my $page = $pdf.add-page;
+my PDF::Lite::Page $page = $pdf.add-page;
 
 $page.graphics: {
     my $font = .core-font( :family<Helvetica> );
-    my $form = .xobject-form(:BBox[0, 0, 95, 25]);
+    my PDF::Lite::XObject $form = .xobject-form(:BBox[0, 0, 95, 25]);
     $form.graphics: {
         # Set a background color
         .FillColor = rgb(.8, .9, .9);
@@ -205,14 +209,14 @@ $page.graphics: {
 }
 
 $page.graphics: {
-    my $pattern = .tiling-pattern(:BBox[0, 0, 25, 25], );
+    my PDF::Lite::Tiling-Pattern $pattern = .tiling-pattern(:BBox[0, 0, 25, 25], );
     $pattern.graphics: {
         # Set a background color
         .FillColor = rgb(.8, .8, .9);
         .Rectangle: |$pattern<BBox>;
         .paint: :fill;
         # Display an image
-        my $img = .load-image("t/images/lightbulb.gif");
+        my PDF::Lite::XObject $img = .load-image("t/images/lightbulb.gif");
         .do($img, 6, 2 );
     }
     # fill a rectangle using this pattern
@@ -241,11 +245,11 @@ my PDF::Lite $new-doc .= new;
 $new-doc.media-box = [0, 0, 500, 400];
 
 # add a page; layup imported pages and images
-my $page = $new-doc.add-page;
+my PDF::Lite::Page $page = $new-doc.add-page;
 
-my $xobj-image = $pdf-with-images.page(1).images[6];
-my $xobj-with-text  = $pdf-with-text.page(1).to-xobject;
-my $xobj-with-images  = $pdf-with-images.page(1).to-xobject;
+my PDF::Lite::XObject $xobj-image = $pdf-with-images.page(1).images[6];
+my PDF::Lite::XObject $xobj-with-text = $pdf-with-text.page(1).to-xobject;
+my PDF::Lite::XObject $xobj-with-images = $pdf-with-images.page(1).to-xobject;
 
 $page.graphics: {
     # scale up an image; use it as a semi-transparent background
@@ -278,9 +282,9 @@ use PDF::Lite;
 my $pdf = PDF::Lite.open: "t/images.pdf";
 for 1 ... $pdf.page-count -> $page-no {
     say "page: $page-no";
-    my $page = $pdf.page: $page-no;
+    my PDF::Lite::Page $page = $pdf.page: $page-no;
     # get all X-Objects (images and forms) on the page
-    my %object = $page.resources('XObject');
+    my PDF::Lite::XObject %object = $page.resources('XObject');
 
     # also report on images embedded in the page content
     my $k = "(inline-0)";

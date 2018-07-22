@@ -20,7 +20,8 @@ for @<code> {
 	    # disable say
 	    sub say(|c) { }
 
-	    lives-ok {EVAL $snippet}, 'code sample';
+	    lives-ok {EVAL $snippet}, 'code sample'
+                or note $snippet;
 	}
     }
 }

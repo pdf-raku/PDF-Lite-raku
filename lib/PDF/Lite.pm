@@ -31,8 +31,10 @@ class PDF::Lite:ver<0.0.3>
             has PDF::COS::Dict $.ExtGState is entry;
     }
 
+    our class XObject is PDF::COS::Stream {}
+
     my class XObject-Form
-        is PDF::COS::Stream
+        is XObject
         does PDF::Content::XObject['Form']
         does PDF::Content::Resourced
         does PDF::Content::Graphics {
@@ -40,13 +42,13 @@ class PDF::Lite:ver<0.0.3>
     }
 
     my class XObject-Image
-        is PDF::COS::Stream
+        is XObject
         does PDF::Content::XObject['Image'] {
     }
 
-    my class Tiling-Pattern is XObject-Form {};
+    class Tiling-Pattern is XObject-Form {};
 
-    my class Page
+    class Page
 	is PDF::COS::Dict
 	does PDF::Content::Page
 	does PDF::Content::PageNode {
@@ -65,7 +67,7 @@ class PDF::Lite:ver<0.0.3>
 	has PDF::COS::Stream @.Contents is entry(:array-or-item);
     }
 
-    my class Pages
+    class Pages
 	is PDF::COS::Dict
 	does PDF::Content::PageNode
 	does PDF::Content::PageTree {
@@ -79,7 +81,7 @@ class PDF::Lite:ver<0.0.3>
         has UInt $.Count       is entry(:required);
     }
 
-    my role Catalog
+    role Catalog
 	does PDF::COS::Tie::Hash {
 	has Pages $.Pages is entry(:required, :indirect);
 
@@ -108,8 +110,6 @@ class PDF::Lite:ver<0.0.3>
     }
     PDF::COS.loader = Loader;
 
-    BEGIN for <page add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font> -> $meth {
-        $?CLASS.^add_method($meth,  method (|a) { self.Root.Pages."$meth"(|a) });
-    }
+    method Pages returns Pages handles <page add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font> { self.Root.Pages }
 
 }
