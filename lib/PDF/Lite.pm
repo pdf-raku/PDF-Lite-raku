@@ -3,7 +3,7 @@ use v6;
 use PDF:ver(v0.2.8+);
 
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.3>
+class PDF::Lite:ver<0.0.4>
     is PDF {
 
     use PDF::COS;

@@ -163,8 +163,8 @@ The companion module PDF::Font::Loader can be used to access a wider range of fo
     $pdf.media-box = [0, 0, 400, 120];
     my PDF::Lite::Page $page = $pdf.add-page;
     my $noto = load-font( :file<t/fonts/NotoSans-Regular.ttf> );
-    # or lookup by font name (requires fontconfig)
-    # $noto = load-font: :name<NotoSans>;
+    # or lookup by family and attributes (also requires fontconfig)
+    # $noto = load-font: :family<NotoSans>, :weight<book>;
 
     $page.text: {
         .text-position = [10,100];
