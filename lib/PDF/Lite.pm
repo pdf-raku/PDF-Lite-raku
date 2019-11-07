@@ -110,6 +110,6 @@ class PDF::Lite:ver<0.0.4>
     }
     PDF::COS.loader = Loader;
 
-    method Pages returns Pages handles <page add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font> { self.Root.Pages }
+    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font> { self.Root.Pages }
 
 }

@@ -14,7 +14,7 @@ use v6;
 use PDF::Lite;
 
 my PDF::Lite $pdf .= new;
-$pdf.media-box = [0, 0, 200, 100];
+$pdf.media-box = 'Letter';
 my PDF::Lite::Page $page = $pdf.add-page;
 constant X-Margin = 10;
 constant Padding = 10;
@@ -30,7 +30,7 @@ $page.graphics: {
     .do($img, X-Margin + Padding + $text-block.width, 10);
 }
 
-with $pdf.Info //= {} {
+given $pdf.Info //= {} {
     .CreationDate = DateTime.now;
 }
 
@@ -163,7 +163,7 @@ The companion module PDF::Font::Loader can be used to access a wider range of fo
     $pdf.media-box = [0, 0, 400, 120];
     my PDF::Lite::Page $page = $pdf.add-page;
     my $noto = load-font( :file<t/fonts/NotoSans-Regular.ttf> );
-    # or lookup by family and attributes (also requires fontconfig)
+    # or find a system font by family and attributes (also requires fontconfig)
     # $noto = load-font: :family<NotoSans>, :weight<book>;
 
     $page.text: {
@@ -369,7 +369,7 @@ draw-curve3($pdf.add-page.gfx);
 
 ```
 
-Please see [Appendix I - Graphics](https://github.com/p6-pdf/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
+Please see [PDF::API6 Appendix I - Graphics](https://github.com/p6-pdf/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
 Graphics can also be read from an existing PDF file:
 
@@ -409,7 +409,7 @@ use PDF::Lite;
 use PDF::Content::Ops :OpCode;
 my PDF::Lite $pdf .= open: "examples/hello-world.pdf";
 
-my &callback = sub ($op, *@args) {
+my &callback = -> $op, *@args {
    given $op {
        when SetTextMatrix {
            say "text matrix set to: {$*gfx.TextMatrix}";
