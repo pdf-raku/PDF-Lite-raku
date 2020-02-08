@@ -1,10 +1,11 @@
 use v6;
 
 use PDF:ver(v0.2.8+);
+use PDF::Content::Interface;
 
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.4>
-    is PDF {
+class PDF::Lite:ver<0.0.5>
+    is PDF does PDF::Content::Interface {
 
     use PDF::COS;
     use PDF::COS::Tie;
@@ -72,13 +73,13 @@ class PDF::Lite:ver<0.0.4>
 	does PDF::Content::PageNode
 	does PDF::Content::PageTree {
 
-	has ResourceDict $.Resources is entry(:inherit);
 	#| inheritable page properties
+	has ResourceDict $.Resources is entry(:inherit);
 	has Numeric @.MediaBox is entry(:inherit,:len(4));
 	has Numeric @.CropBox  is entry(:inherit,:len(4));
 
-	has PDF::Content::PageNode @.Kids        is entry(:required, :indirect);
-        has UInt $.Count       is entry(:required);
+	has PDF::Content::PageNode @.Kids is entry(:required, :indirect);
+        has UInt $.Count                  is entry(:required);
     }
 
     role Catalog
@@ -110,6 +111,9 @@ class PDF::Lite:ver<0.0.4>
     }
     PDF::COS.loader = Loader;
 
-    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font> { self.Root.Pages }
+    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font rotate> { self.Root.Pages }
+
+    # restrict to to PDF format; avoid FDF etc
+    method open(|c) { nextwith( :type<PDF>, |c); }
 
 }
