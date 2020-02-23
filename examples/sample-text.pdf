@@ -1,59 +1,49 @@
 %PDF-1.3
 %¥±ë
-1 0 obj <<
-  /Type /Catalog
-  /Pages 2 0 R
->>
+1 0 obj << /Type /Catalog /Pages 2 0 R >>
 endobj
 
-2 0 obj <<
-  /Type /Pages
-  /Count 1
-  /Kids [ 3 0 R ]
-  /MediaBox [ 0 0 500 150 ]
->>
+2 0 obj << /Type /Pages /Count 1 /Kids [ 3 0 R ] /MediaBox [ 0 0 500 150 ] >>
 endobj
 
 3 0 obj <<
   /Type /Page
   /Contents 4 0 R
   /Parent 2 0 R
-  /Resources <<
-    /Font <<
-      /F1 5 0 R
-      /F2 6 0 R
-    >>
-  >>
+  /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >>
 >>
 endobj
 
-4 0 obj <<
-  /Length 511
->> stream
+4 0 obj << /Length 585 >> stream
 BT
   /F1 12 Tf
-  1 0 0 1 20 100 Tm
-  (Lorem ipsum dolor sit amet,) Tj
-  13.2 TL
-  T*
-  (consectetur adipiscing elit, sed do) Tj
-  T*
-  (eiusmod tempor incididunt ut labore) Tj
-  T*
-  (et dolore magna aliqua.) Tj
-  T*
-  1 0 0 1 450 100 Tm
-  [ 12337 (Lorem ipsum dolor sit amet,) ] TJ
-  T*
-  [ 15007 (consectetur adipiscing elit, sed do) ] TJ
-  T*
-  [ 15840 (eiusmod tempor incididunt ut labore) ] TJ
-  T*
-  [ 10450 (et dolore magna aliqua.) ] TJ
-  T*
+  /Span BMC
+    (Lorem ipsum dolor sit amet,) Tj
+    13.2 TL
+    T*
+    (consectetur adipiscing elit, sed do) Tj
+    T*
+    (eiusmod tempor incididunt ut labore) Tj
+    T*
+    (et dolore magna aliqua.) Tj
+    T*
+  EMC
+  /Span BMC
+    1 0 0 1 450 100 Tm
+    [ 12337 (Lorem ipsum dolor sit amet,) ] TJ
+    T*
+    [ 15007 (consectetur adipiscing elit, sed do) ] TJ
+    T*
+    [ 15840 (eiusmod tempor incididunt ut labore) ] TJ
+    T*
+    [ 10450 (et dolore magna aliqua.) ] TJ
+    T*
+  EMC
   /F2 12 Tf
-  [ 11073 (But wait, there's more!!) ] TJ
-  T*
+  /Span BMC
+    [ 11073 (But wait, there's more!!) ] TJ
+    T*
+  EMC
 ET
 endstream
 endobj
@@ -78,17 +68,17 @@ xref
 0 7
 0000000000 65535 f 
 0000000014 00000 n 
-0000000068 00000 n 
-0000000162 00000 n 
-0000000305 00000 n 
-0000000870 00000 n 
-0000000976 00000 n 
+0000000064 00000 n 
+0000000150 00000 n 
+0000000271 00000 n 
+0000000908 00000 n 
+0000001014 00000 n 
 trailer
 <<
-  /ID [ <d743a886fcdcf87b69c36548219ea941> <d743a886fcdcf87b69c36548219ea941> ]
+  /ID [ <6aa0e4a41975d12738f1d072cf48969d> <6aa0e4a41975d12738f1d072cf48969d> ]
   /Root 1 0 R
   /Size 7
 >>
 startxref
-1087
+1125
 %%EOF

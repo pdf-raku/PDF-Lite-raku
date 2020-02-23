@@ -1,45 +1,34 @@
 %PDF-1.3
 %¥±ë
-1 0 obj <<
-  /Type /Catalog
-  /Pages 2 0 R
->>
+1 0 obj << /Type /Catalog /Pages 2 0 R >>
 endobj
 
-2 0 obj <<
-  /Type /Pages
-  /Count 1
-  /Kids [ 3 0 R ]
-  /MediaBox [ 0 0 400 120 ]
->>
+2 0 obj << /Type /Pages /Count 1 /Kids [ 3 0 R ] /MediaBox [ 0 0 400 120 ] >>
 endobj
 
 3 0 obj <<
   /Type /Page
   /Contents 4 0 R
   /Parent 2 0 R
-  /Resources <<
-    /Font <<
-      /F1 5 0 R
-      /F2 6 0 R
-    >>
-  >>
+  /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >>
 >>
 endobj
 
-4 0 obj <<
-  /Length 257
->> stream
+4 0 obj << /Length 333 >> stream
 q
   BT
     1 0 0 1 20 70 Tm
     /F1 24 Tf
     16 Tw
-    (« ¨ ) Tj
+    /Span BMC
+      (« ¨ ) Tj
+    EMC
     1 0.3 0.3 rg
-    (© ª) Tj
-    26.4 TL
-    T*
+    /Span BMC
+      (© ª) Tj
+      26.4 TL
+      T*
+    EMC
   ET
   BT
     /F2 18 Tf
@@ -47,17 +36,15 @@ q
     0.5 w
     1 0 0.29101 1 18.73019 30 Tm
     0.6 0.7 0.9 rg
-    (Outline Slanted Text @\(10,30\)) Tj
+    /Span BMC
+      (Outline Slanted Text @\(10,30\)) Tj
+    EMC
   ET
 Q
 endstream
 endobj
 
-5 0 obj <<
-  /Type /Font
-  /Subtype /Type1
-  /BaseFont /ZapfDingbats
->>
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /ZapfDingbats >>
 endobj
 
 6 0 obj <<
@@ -72,17 +59,17 @@ xref
 0 7
 0000000000 65535 f 
 0000000014 00000 n 
-0000000068 00000 n 
-0000000162 00000 n 
-0000000305 00000 n 
-0000000616 00000 n 
-0000000696 00000 n 
+0000000064 00000 n 
+0000000150 00000 n 
+0000000271 00000 n 
+0000000656 00000 n 
+0000000730 00000 n 
 trailer
 <<
-  /ID [ <d743a886fcdcf87b69c36548219ea941> <d743a886fcdcf87b69c36548219ea941> ]
+  /ID [ <6aa0e4a41975d12738f1d072cf48969d> <6aa0e4a41975d12738f1d072cf48969d> ]
   /Root 1 0 R
   /Size 7
 >>
 startxref
-807
+841
 %%EOF

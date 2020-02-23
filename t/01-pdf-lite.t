@@ -28,10 +28,11 @@ $page.graphics: {
 # should wrap this in 'q' .. 'Q' when re-read
 $page.gfx.strict = False;
 $page.gfx.SetStrokeRGB(.3, .4, .5);
-is-json-equiv $page.gfx.content-dump.head(7).list, (
+is-json-equiv $page.gfx.content-dump.head(8).list, (
     "BT",
     "1 0 0 1 200 200 Tm",
     "/F1 18 Tf",
+    "/Span BMC",
     "(Lorem ipsum dolor sit amet,) Tj",
     "19.8 TL",
     "T*",
@@ -44,11 +45,12 @@ lives-ok { $pdf.save-as("t/01-pdf-lite.pdf") }, 'save-as';
 throws-like { $pdf.unknown-method }, X::Method::NotFound, message => "No such method 'unknown-method' for invocant of type 'PDF::Lite'", '$pdf unknown method';
 
 lives-ok { $pdf = PDF::Lite.open("t/01-pdf-lite.pdf") }, 'open';
-is-json-equiv $pdf.page(1).render.content-dump.head(7).list, (
+is-json-equiv $pdf.page(1).render.content-dump.head(8).list, (
     "q",
     "BT",
     "1 0 0 1 200 200 Tm",
     "/F1 18 Tf",
+    "/Span BMC",
     "(Lorem ipsum dolor sit amet,) Tj",
     "19.8 TL",
     "T*",

@@ -1,10 +1,10 @@
 use v6;
 
-use PDF:ver(v0.2.8+);
+use PDF:ver(v0.4.1+);
 use PDF::Content::Interface;
 
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.5>
+class PDF::Lite:ver<0.0.6>
     is PDF does PDF::Content::Interface {
 
     use PDF::COS;

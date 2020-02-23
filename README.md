@@ -19,15 +19,14 @@ my PDF::Lite::Page $page = $pdf.add-page;
 constant X-Margin = 10;
 constant Padding = 10;
 
-my $text-block = $page.text: {
-    .font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
-    .text-position = [10, 10];
-    .say: 'Hello, world';
-}
+my $text-block = $page.graphics: {
+    my $font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
+    my @position = [10, 10];
+    my $text-block = .text-block: :text("Hello World"), :@position, :$font;
+    .say: $text-block;
 
-$page.graphics: {
     my PDF::Lite::XObject $img = .load-image: "t/images/lightbulb.gif";
-    .do($img, X-Margin + Padding + $text-block.width, 10);
+    .do($img, :position[X-Margin + Padding + $text-block.width, 10]);
 }
 
 given $pdf.Info //= {} {
@@ -55,18 +54,19 @@ my PDF::Lite::Page $page = $pdf.add-page;
 my $font = $page.core-font( :family<Helvetica> );
 
 $page.text: -> $txt {
-    my $para = q:to"--END--";
+    my $text = q:to"--END--";
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
     ut labore et dolore magna aliqua.
     --END--
             
     $txt.font = $font, 12;
     # output a text box with left, top corner at (20, 100)
-    my PDF::Content::Text::Block $text-block = $txt.say( $para, :width(200), :position[ :left(20), :top(100)] );
+    my PDF::Content::Text::Block $text-block = $txt.text-block( :$text, :width(200), :position[ :left(20), :top(100)] );
+    $txt.say($text-block);
     note "text height: {$text-block.height}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
-    $txt.say( $para, :width(200), :height(150), :align<right>, :kern, :position[450, 100] );
+    $txt.say( $text, :width(200), :height(150), :align<right>, :kern, :position[450, 100] );
     # add another line of text, flowing on to the next line
     $txt.font = $page.core-font( :family<Helvetica>, :weight<bold> ), 12;
     $txt.say( "But wait, there's more!!", :align<right>, :kern );
