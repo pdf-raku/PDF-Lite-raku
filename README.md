@@ -61,8 +61,8 @@ $page.text: -> $txt {
             
     $txt.font = $font, 12;
     # output a text box with left, top corner at (20, 100)
-    my PDF::Content::Text::Block $text-block = $txt.text-block( :$text, :width(200), :position[ :left(20), :top(100)] );
-    $txt.say($text-block);
+    my PDF::Content::Text::Block $text-block = $txt.text-block( :$text, :width(200));
+    $txt.say($text-block,  :position[:left(20), :top(100)]);
     note "text height: {$text-block.height}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
