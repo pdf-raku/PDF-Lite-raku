@@ -14,21 +14,17 @@ endobj
 >>
 endobj
 
-4 0 obj << /Length 333 >> stream
+4 0 obj << /Length 257 >> stream
 q
   BT
     1 0 0 1 20 70 Tm
     /F1 24 Tf
     16 Tw
-    /Span BMC
-      (« ¨ ) Tj
-    EMC
+    (« ¨ ) Tj
     1 0.3 0.3 rg
-    /Span BMC
-      (© ª) Tj
-      26.4 TL
-      T*
-    EMC
+    (© ª) Tj
+    26.4 TL
+    T*
   ET
   BT
     /F2 18 Tf
@@ -36,9 +32,7 @@ q
     0.5 w
     1 0 0.29101 1 18.73019 30 Tm
     0.6 0.7 0.9 rg
-    /Span BMC
-      (Outline Slanted Text @\(10,30\)) Tj
-    EMC
+    (Outline Slanted Text @\(10,30\)) Tj
   ET
 Q
 endstream
@@ -62,8 +56,8 @@ xref
 0000000064 00000 n 
 0000000150 00000 n 
 0000000271 00000 n 
-0000000656 00000 n 
-0000000730 00000 n 
+0000000580 00000 n 
+0000000654 00000 n 
 trailer
 <<
   /ID [ <6aa0e4a41975d12738f1d072cf48969d> <6aa0e4a41975d12738f1d072cf48969d> ]
@@ -71,5 +65,5 @@ trailer
   /Size 7
 >>
 startxref
-841
+765
 %%EOF
