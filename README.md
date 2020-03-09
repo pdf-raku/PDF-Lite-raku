@@ -19,14 +19,14 @@ my PDF::Lite::Page $page = $pdf.add-page;
 constant X-Margin = 10;
 constant Padding = 10;
 
-my $text-block = $page.graphics: {
+$page.graphics: {
+    enum <x0 y0 x1 y1>;
     my $font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
     my @position = [10, 10];
-    my $text-block = .text-block: :text("Hello World"), :@position, :$font;
-    .say: $text-block;
+    my @box = .say: "Hello World", :@position, :$font;
 
     my PDF::Lite::XObject $img = .load-image: "t/images/lightbulb.gif";
-    .do($img, :position[X-Margin + Padding + $text-block.width, 10]);
+    .do: $img, :position[@box[x1] + Padding, 10];
 }
 
 given $pdf.Info //= {} {
@@ -42,31 +42,30 @@ $pdf.save-as: "examples/hello-world.pdf";
 
 `.say` and `.print` are simple convenience methods for displaying simple blocks of text with optional line-wrapping, alignment and kerning.
 
-These methods return a text-block object which can be used to
-determine the actual width and height of the displayed text block;
+These methods return a rectangle given the rendered text region;
 
 ```
 use PDF::Lite;
-use PDF::Content::Text::Block;
+enum <x0 y0 x1 y1>;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 500, 150];
 my PDF::Lite::Page $page = $pdf.add-page;
 my $font = $page.core-font( :family<Helvetica> );
 
 $page.text: -> $txt {
+    my $width := 200;
     my $text = q:to"--END--";
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
     ut labore et dolore magna aliqua.
     --END--
             
     $txt.font = $font, 12;
-    # output a text box with left, top corner at (20, 100)
-    my PDF::Content::Text::Block $text-block = $txt.text-block( :$text, :width(200));
-    $txt.say($text-block,  :position[:left(20), :top(100)]);
-    note "text height: {$text-block.height}";
+    # output text with left, top corner at (20, 100)
+    my @box = $txt.say: $text, :$width, :position[:left(20), :top(100)];
+    note "text height: {@box[y1] - @box[y0]}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
-    $txt.say( $text, :width(200), :height(150), :align<right>, :kern, :position[450, 100] );
+    $txt.say( $text, :$width, :height(150), :align<right>, :kern, :position[450, 100] );
     # add another line of text, flowing on to the next line
     $txt.font = $page.core-font( :family<Helvetica>, :weight<bold> ), 12;
     $txt.say( "But wait, there's more!!", :align<right>, :kern );
