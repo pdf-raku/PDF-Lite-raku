@@ -1,6 +1,6 @@
 {
   "api": "PDF-1.7",
-  "auth": "github:p6-pdf",
+  "auth": "github:pdf-raku",
   "authors": [
     "David Warring"
   ],
@@ -15,7 +15,7 @@
   "provides": {
     "PDF::Lite": "lib/PDF/Lite.rakumod"
   },
-  "source-url": "git://github.com/p6-pdf/PDF-Lite-p6.git",
+  "source-url": "git://github.com/pdf-raku/PDF-Lite-raku.git",
   "tags": [
     "pdf"
   ],

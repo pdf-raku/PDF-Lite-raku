@@ -1,7 +1,7 @@
 # PDF::Lite
 
- <a href="https://travis-ci.org/p6-pdf/PDF-Lite-p6"><img src="https://travis-ci.org/p6-pdf/PDF-Lite-p6.svg?branch=master"></a>
- <a href="https://ci.appveyor.com/project/dwarring/PDF-Lite-p6/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/p6-pdf/PDF-Lite-p6?branch=master&passingText=Windows%20-%20OK&failingText=Windows%20-%20FAIL&pendingText=Windows%20-%20pending&svg=true"></a>
+ <a href="https://travis-ci.org/pdf-raku/PDF-Lite-raku"><img src="https://travis-ci.org/pdf-raku/PDF-Lite-raku.svg?branch=master"></a>
+ <a href="https://ci.appveyor.com/project/dwarring/PDF-Lite-raku/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/pdf-raku/PDF-Lite-raku?branch=master&passingText=Windows%20-%20OK&failingText=Windows%20-%20FAIL&pendingText=Windows%20-%20pending&svg=true"></a>
 
 `PDF::Lite` is a minimal class for creating or editing PDF documents, including:
 - Basic Text
@@ -368,7 +368,7 @@ draw-curve3($pdf.add-page.gfx);
 
 ```
 
-Please see [PDF::API6 Appendix I - Graphics](https://github.com/p6-pdf/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
+Please see [PDF::API6 Appendix I - Graphics](https://github.com/pdf-raku/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
 Graphics can also be read from an existing PDF file:
 
@@ -421,20 +421,20 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 ## See also
 
-- [PDF::Font::Loader](https://github.com/p6-pdf/PDF-Font-Loader-p6) for using Postscript and TrueType fonts.
+- [PDF::Font::Loader](https://github.com/pdf-raku/PDF-Font-Loader-raku) for using Postscript and TrueType fonts.
 
-- This module (PDF::Lite) is based on [PDF](https://github.com/p6-pdf/PDF-p6) and has all of it methods available. This includes:
+- This module (PDF::Lite) is based on [PDF](https://github.com/pdf-raku/PDF-raku) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
     - `save-as` to save to PDF or JSON
     - `update` to perform an in-place incremental update of the PDF
     - `Info` to access document meta-data
 
-- [PDF::API6 Graphics Documentation](https://github.com/p6-pdf/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
+- [PDF::API6 Graphics Documentation](https://github.com/pdf-raku/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
 
-    - [Section II: Contents Methods](https://github.com/p6-pdf/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
+    - [Section II: Contents Methods](https://github.com/pdf-raku/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
 
-    - [Appendix I - Graphics](https://github.com/p6-pdf/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
+    - [Appendix I - Graphics](https://github.com/pdf-raku/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
 
 
