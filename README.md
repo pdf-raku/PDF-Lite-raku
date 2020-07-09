@@ -368,7 +368,7 @@ draw-curve3($pdf.add-page.gfx);
 
 ```
 
-Please see [PDF::API6 Appendix I - Graphics](https://github.com/pdf-raku/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
+Please see [PDF::API6 Appendix I - Graphics](https://pdf-raku.github.io/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
 Graphics can also be read from an existing PDF file:
 
@@ -421,20 +421,20 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 ## See also
 
-- [PDF::Font::Loader](https://github.com/pdf-raku/PDF-Font-Loader-raku) for using Postscript and TrueType fonts.
+- [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) for using Postscript and TrueType fonts.
 
-- This module (PDF::Lite) is based on [PDF](https://github.com/pdf-raku/PDF-raku) and has all of it methods available. This includes:
+- This module (PDF::Lite) is based on [PDF](https://pdf-raku.github.io/PDF-raku) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
     - `save-as` to save to PDF or JSON
     - `update` to perform an in-place incremental update of the PDF
     - `Info` to access document meta-data
 
-- [PDF::API6 Graphics Documentation](https://github.com/pdf-raku/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
+- [PDF::API6 Graphics Documentation](https://pdf-raku.github.io/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
 
-    - [Section II: Contents Methods](https://github.com/pdf-raku/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
+    - [Section II: Contents Methods](https://pdf-raku.github.io/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
 
-    - [Appendix I - Graphics](https://github.com/pdf-raku/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
+    - [Appendix I - Graphics](https://pdf-raku.github.io/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
 
 
