@@ -2,26 +2,29 @@ os: Visual Studio 2015
 
 platform: x64
 
-environment:
-        matrix:
-        - test_moar: '2017.10'
-        - test_moar: '' #latest
-
 install:
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
-  - choco install strawberryperl --allow-empty-checksums
-  - SET PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;%PATH%
-  - git clone https://github.com/tadzik/rakudobrew %USERPROFILE%\rakudobrew
-  - SET PATH=%USERPROFILE%\rakudobrew\bin;%PATH%
-  - rakudobrew build moar %TEST_MOAR%
-  - rakudobrew build zef
+  # Install rakudostar for faster CI builds.
+  - choco install rakudostar
+  # For Base64::Native
+  - choco install make
+  - choco install mingw
+  # Change to build folder
   - cd %APPVEYOR_BUILD_FOLDER%
-  - zef --depsonly install .
+  # Refresh environment variables so zef works
+  - refreshenv
 
 build: off
 
 test_script:
-  - set AUTHOR_TESTING=1 && prove -ve "perl6 -I."
+  # spoon-feed deps for older zef versions
+  - zef install PDF::Grammar
+  - zef install PDF
+  - zef install PDF::Content
+  - zef install Base64::Native
+  - zef install Native::Packing
+  - zef install Compress::Zlib::Raw
+  - zef --deps-only install .
+  - prove -ve "perl6 -I."
   - zef install .
 
 shallow_clone: true
