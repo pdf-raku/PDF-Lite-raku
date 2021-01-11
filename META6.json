@@ -1,8 +1,10 @@
 {
   "api": "PDF-1.7",
-  "auth": "github:pdf-raku",
+  "auth": "cpan:DWARRING",
   "authors": [
     "David Warring"
+  ],
+  "build-depends": [
   ],
   "depends": [
     "PDF::Content:ver<0.4.1+>",
@@ -15,9 +17,13 @@
   "provides": {
     "PDF::Lite": "lib/PDF/Lite.rakumod"
   },
+  "resources": [
+  ],
   "source-url": "git://github.com/pdf-raku/PDF-Lite-raku.git",
   "tags": [
     "pdf"
+  ],
+  "test-depends": [
   ],
   "version": "0.0.6"
 }

@@ -43,7 +43,7 @@ $pdf.save-as: "examples/hello-world.pdf";
 
 #### Text
 
-`.say` and `.print` are simple convenience methods for displaying simple blocks of text with optional line-wrapping, alignment and kerning.
+`.say` and `.print` are simple convenience methods for displaying simple blocks of text with encoding, optional line-wrapping, alignment and kerning.
 
 These methods return a rectangle given the rendered text region;
 
@@ -157,7 +157,7 @@ $pdf.save-as: "examples/text-effects.pdf";
 
 This module has build-in support for the PDF core fonts: Courier, Times, Helvetica, ZapfDingbats and Symbol.
 
-The companion module PDF::Font::Loader can be used to access a wider range of fonts:
+The companion module [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) can be used to access a wider range of fonts:
 
     use PDF::Lite;
     use PDF::Font::Loader :load-font;
