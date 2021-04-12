@@ -1,8 +1,6 @@
 use v6;
 use Test;
 plan 2;
-# ensure consistant document ID generation
-srand(123456);
 
 use PDF::Lite;
 my PDF::Lite $pdf .= new;
@@ -21,6 +19,8 @@ $page.canvas: {
     .fillText("Hello World", 10, 50);
 }
 
+# ensure consistant document ID generation
+$pdf.id = $*PROGRAM-NAME.fmt('%-16s').substr(0,16);
 lives-ok { $pdf.save-as("t/pdf-canvas.pdf") }, 'save-as';
 
 throws-like { $pdf.unknown-method }, X::Method::NotFound, '$pdf unknown method';

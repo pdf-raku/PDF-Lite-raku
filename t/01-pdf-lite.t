@@ -1,9 +1,6 @@
 use v6;
 use Test;
 
-# ensure consistant document ID generation
-srand(123456);
-
 use PDF::Lite;
 use PDF::Grammar::Test :is-json-equiv;
 my PDF::Lite $pdf .= new;
@@ -41,6 +38,9 @@ is-json-equiv $page.gfx.content-dump.head(8).list, (
     "T*",
     ),
     'presave graphics (head)';
+
+# ensure consistant document ID generation
+$pdf.id = $*PROGRAM-NAME.fmt('%-16s').substr(0,16);
 
 lives-ok { $pdf.save-as("t/01-pdf-lite.pdf") }, 'save-as';
 
