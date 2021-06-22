@@ -2,6 +2,7 @@
  / [PDF::Lite](https://pdf-raku.github.io/PDF-Lite-raku)
 
 [![Actions Status](https://github.com/pdf-raku/PDF-Lite-raku/workflows/test/badge.svg)](https://github.com/pdf-raku/PDF-Lite-raku/actions)
+<a href="https://ci.appveyor.com/project/dwarring/PDF-Lite-raku/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/pdf-raku/PDF-Lite-raku?branch=master&passingText=Windows%20-%20OK&failingText=Windows%20-%20FAIL&pendingText=Windows%20-%20pending&svg=true"></a>
 
 # PDF::Lite
 
