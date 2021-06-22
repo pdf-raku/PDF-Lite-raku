@@ -16,6 +16,7 @@ class PDF::Lite:ver<0.0.7>
     use PDF::COS::Util :from-ast;
 
     use PDF::Content:ver(v0.1.0+);
+    use PDF::Content::Font;
     use PDF::Content::Graphics;
     use PDF::Content::Page;
     use PDF::Content::PageNode;
@@ -24,15 +25,18 @@ class PDF::Lite:ver<0.0.7>
     use PDF::Content::ResourceDict;
     use PDF::Content::XObject;
 
-    my role ResourceDict
-	does PDF::COS::Tie::Hash
-	does PDF::Content::ResourceDict {
-            has PDF::COS::Dict %.Font  is entry;
-	    has PDF::COS::Stream %.XObject is entry;
-            has PDF::COS::Dict $.ExtGState is entry;
+    class XObject is PDF::COS::Stream {}
+
+    class Font is PDF::COS::Dict does PDF::Content::Font {
     }
 
-    our class XObject is PDF::COS::Stream {}
+    my role ResourceDict
+        does PDF::COS::Tie::Hash
+        does PDF::Content::ResourceDict {
+            has Font %.Font  is entry;
+            has XObject %.XObject is entry;
+            has PDF::COS::Dict $.ExtGState is entry;
+    }
 
     my class XObject-Form
         is XObject
@@ -50,61 +54,61 @@ class PDF::Lite:ver<0.0.7>
     class Tiling-Pattern is XObject-Form {};
 
     class Page
-	is PDF::COS::Dict
-	does PDF::Content::Page
-	does PDF::Content::PageNode {
+        is PDF::COS::Dict
+        does PDF::Content::Page
+        does PDF::Content::PageNode {
 
- 	has ResourceDict $.Resources is entry(:inherit);
-	#| inheritable page properties
-	has Numeric @.MediaBox is entry(:inherit,:len(4));
-	has Numeric @.CropBox  is entry(:inherit,:len(4));
-	has Numeric @.BleedBox is entry(:len(4));
-	has Numeric @.TrimBox  is entry(:len(4));
-	has Numeric @.ArtBox   is entry(:len(4));
+        has ResourceDict $.Resources is entry(:inherit);
+        #| inheritable page properties
+        has Numeric @.MediaBox is entry(:inherit,:len(4));
+        has Numeric @.CropBox  is entry(:inherit,:len(4));
+        has Numeric @.BleedBox is entry(:len(4));
+        has Numeric @.TrimBox  is entry(:len(4));
+        has Numeric @.ArtBox   is entry(:len(4));
 
         my subset NinetyDegreeAngle of Int where { $_ %% 90}
         has NinetyDegreeAngle $.Rotate is entry(:inherit);
 
-	has PDF::COS::Stream @.Contents is entry(:array-or-item);
+        has PDF::COS::Stream @.Contents is entry(:array-or-item);
     }
 
     class Pages
-	is PDF::COS::Dict
-	does PDF::Content::PageNode
-	does PDF::Content::PageTree {
+        is PDF::COS::Dict
+        does PDF::Content::PageNode
+        does PDF::Content::PageTree {
 
-	#| inheritable page properties
-	has ResourceDict $.Resources is entry(:inherit);
-	has Numeric @.MediaBox is entry(:inherit,:len(4));
-	has Numeric @.CropBox  is entry(:inherit,:len(4));
+        #| inheritable page properties
+        has ResourceDict $.Resources is entry(:inherit);
+        has Numeric @.MediaBox is entry(:inherit,:len(4));
+        has Numeric @.CropBox  is entry(:inherit,:len(4));
 
-	has PDF::Content::PageNode @.Kids is entry(:required, :indirect);
+        has PDF::Content::PageNode @.Kids is entry(:required, :indirect);
         has UInt $.Count                  is entry(:required);
     }
 
     role Catalog
-	does PDF::COS::Tie::Hash {
-	has Pages $.Pages is entry(:required, :indirect);
+        does PDF::COS::Tie::Hash {
+        has Pages $.Pages is entry(:required, :indirect);
 
-	method cb-finish {
-	    self.Pages.?cb-finish;
-	}
+        method cb-finish {
+            self.Pages.?cb-finish;
+        }
 
     }
 
     has Catalog $.Root is entry(:required, :indirect);
 
     method cb-init {
-	self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
+        self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
     }
 
     my class Loader is PDF::COS::Loader {
-        constant %Classes = %( :Form(XObject-Form), :Image(XObject-Image), :Page(Page), :Pages(Pages) );
+        constant %Classes = %( :Form(XObject-Form), :Image(XObject-Image), :Page(Page), :Pages(Pages), :Font(Font) );
 
         multi method load-delegate(Hash :$dict! where { from-ast($_) ~~ 'Form'|'Image' with .<Subtype> }) {
             %Classes{ from-ast($dict<Subtype>) };
         }
-        multi method load-delegate(Hash :$dict! where { from-ast($_) ~~ 'Page'|'Pages' with .<Type> }) {
+        multi method load-delegate(Hash :$dict! where { from-ast($_) ~~ 'Page'|'Pages'|'Font' with .<Type> }) {
             %Classes{ from-ast($dict<Type>) };
         }
         multi method load-delegate(Hash :$dict! where { from-ast($_) == 1 with .<PatternType> }) {
