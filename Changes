@@ -2,6 +2,9 @@ Revision history for PDF-Lite
 
 {{$NEXT}}
 
+0.0.8  2021-06-23T17:01:18+12:00
+    - Add class PDF::Lite::Font
+
 0.0.7  2021-06-20T11:59:05+12:00
     - Removing bogus "api" from META6. Flushing CPAN.
 
