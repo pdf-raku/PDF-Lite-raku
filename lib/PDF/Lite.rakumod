@@ -17,11 +17,10 @@ class PDF::Lite:ver<0.0.8>
 
     use PDF::Content:ver(v0.1.0+);
     use PDF::Content::Font;
-    use PDF::Content::Graphics;
+    use PDF::Content::Canvas;
     use PDF::Content::Page;
     use PDF::Content::PageNode;
     use PDF::Content::PageTree;
-    use PDF::Content::Resourced;
     use PDF::Content::ResourceDict;
     use PDF::Content::XObject;
 
@@ -41,8 +40,7 @@ class PDF::Lite:ver<0.0.8>
     my class XObject-Form
         is XObject
         does PDF::Content::XObject['Form']
-        does PDF::Content::Resourced
-        does PDF::Content::Graphics {
+        does PDF::Content::Canvas {
             has ResourceDict $.Resources is entry;
     }
 

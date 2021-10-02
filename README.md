@@ -424,7 +424,7 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 ## See also
 
-- [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) for using Postscript and TrueType fonts.
+- [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) for using Postscript, TrueType and OpenType fonts.
 
 - This module (PDF::Lite) is based on [PDF](https://pdf-raku.github.io/PDF-raku) and has all of it methods available. This includes:
 
@@ -435,7 +435,7 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 - [PDF::API6 Graphics Documentation](https://pdf-raku.github.io/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
 
-    - [Section II: Contents Methods](https://pdf-raku.github.io/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
+    - [Section II: Content Methods](https://pdf-raku.github.io/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
 
     - [Appendix I - Graphics](https://pdf-raku.github.io/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
