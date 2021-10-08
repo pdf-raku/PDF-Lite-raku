@@ -426,6 +426,8 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 - [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) for using Postscript, TrueType and OpenType fonts.
 
+- [HTML::Canvas::To::PDF](https://pdf-raku.github.io/HTML-Canvas-To-PDF-raku/) HTML Canvas renderer
+
 - This module (PDF::Lite) is based on [PDF](https://pdf-raku.github.io/PDF-raku) and has all of it methods available. This includes:
 
     - `open` to read an existing PDF or JSON file
