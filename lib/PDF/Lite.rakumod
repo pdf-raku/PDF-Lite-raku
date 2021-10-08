@@ -4,7 +4,7 @@ use PDF:ver(v0.4.1+);
 use PDF::Content::Interface;
 
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.8>
+class PDF::Lite:ver<0.0.9>
     is PDF does PDF::Content::Interface {
 
     use PDF::COS;

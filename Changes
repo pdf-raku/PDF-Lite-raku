@@ -1,6 +1,8 @@
 Revision history for PDF-Lite
 
 {{$NEXT}}
+
+0.0.9  2021-10-09T09:10:40+13:00
    - Replace canvas(&code) with html-canvas(&code) in pdf-canvas.t
      as deprecated in PDF::Content v0.5.8+
 
