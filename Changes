@@ -1,6 +1,8 @@
 Revision history for PDF-Lite
 
 {{$NEXT}}
+
+0.0.11  2022-05-11T08:54:01+12:00
    - Use PDF::Content 0.6.1 core font cache. Prefer core-font loading
      at the PDF level.
 
