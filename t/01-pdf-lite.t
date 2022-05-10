@@ -5,7 +5,7 @@ use PDF::Lite;
 use PDF::Grammar::Test :is-json-equiv;
 my PDF::Lite $pdf .= new;
 my $page = $pdf.add-page;
-my $header-font = $page.core-font( :family<Helvetica>, :weight<bold> );
+my $header-font = $pdf.core-font( :family<Helvetica>, :weight<bold> );
 
 $page.text: {
     .text-position = [200, 200];

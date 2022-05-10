@@ -17,6 +17,7 @@ class PDF::Lite:ver<0.0.10>
 
     use PDF::Content:ver(v0.1.0+);
     use PDF::Content::Font;
+    use PDF::Content::Font::CoreFont;
     use PDF::Content::Canvas;
     use PDF::Content::Page;
     use PDF::Content::PageNode;
@@ -96,6 +97,11 @@ class PDF::Lite:ver<0.0.10>
 
     has Catalog $.Root is entry(:required, :indirect);
 
+    has PDF::Content::Font::CoreFont::Cache $!cache .= new;
+    method core-font(|c) {
+        PDF::Content::Font::CoreFont.load-font(:$!cache, |c);
+    }
+
     method cb-init {
         self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
     }
@@ -115,7 +121,7 @@ class PDF::Lite:ver<0.0.10>
     }
     PDF::COS.loader = Loader;
 
-    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box core-font use-font rotate> { self.Root.Pages }
+    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box use-font rotate> { self.Root.Pages }
 
     # restrict to to PDF format; avoid FDF etc
     method open(|c) { nextwith( :type<PDF>, |c); }

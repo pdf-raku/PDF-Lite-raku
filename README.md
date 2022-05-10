@@ -24,7 +24,7 @@ constant Padding = 10;
 
 $page.graphics: {
     enum <x0 y0 x1 y1>;
-    my $font = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
+    my $font = $pdf.core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
     my @position = [10, 10];
     my @box = .say: "Hello World", :@position, :$font;
 
@@ -53,7 +53,7 @@ enum <x0 y0 x1 y1>;
 my PDF::Lite $pdf .= new;
 $pdf.media-box = [0, 0, 500, 150];
 my PDF::Lite::Page $page = $pdf.add-page;
-my $font = $page.core-font( :family<Helvetica> );
+my $font = $pdf.core-font( :family<Helvetica> );
 
 $page.text: -> $txt {
     my $width := 200;
@@ -70,7 +70,7 @@ $page.text: -> $txt {
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
     $txt.say( $text, :$width, :height(150), :align<right>, :kern, :position[450, 100] );
     # add another line of text, flowing on to the next line
-    $txt.font = $page.core-font( :family<Helvetica>, :weight<bold> ), 12;
+    $txt.font = $pdf.core-font( :family<Helvetica>, :weight<bold> ), 12;
     $txt.say( "But wait, there's more!!", :align<right>, :kern );
 }
 
@@ -125,7 +125,7 @@ $page.graphics: {
 
     $page.text: {
 	.text-position = [20, 70];
-	.font = [ .core-font('ZapfDingbats'), 24];
+	.font = [ $pdf.core-font('ZapfDingbats'), 24];
 	.WordSpacing = 16;
 	.print("♠ ♣\c[NO-BREAK SPACE]");
 	.FillColor = rgb(1, .3, .3);  # reddish
@@ -134,7 +134,7 @@ $page.graphics: {
 
     # Display outline, slanted text
 
-    my $header-font = $page.core-font( :family<Helvetica>, :weight<bold> );
+    my $header-font = $pdf.core-font( :family<Helvetica>, :weight<bold> );
 
     $page.text: {
 	 use PDF::Content::Ops :TextMode;
@@ -193,7 +193,7 @@ $pdf.media-box = [0, 0, 400, 120];
 my PDF::Lite::Page $page = $pdf.add-page;
 
 $page.graphics: {
-    my $font = .core-font( :family<Helvetica> );
+    my $font = $pdf.core-font( :family<Helvetica> );
     my PDF::Lite::XObject $form = .xobject-form(:BBox[0, 0, 95, 25]);
     $form.graphics: {
         # Set a background color
@@ -386,12 +386,14 @@ say $pdf.page(1).gfx.ops;
 A number of variables are maintained that describe the graphics state. In many cases these may be set directly:
 
 ```
-my $page = (require PDF::Lite).new.add-page;
+use PDF::Lite;
+my PDF::Lite $pdf .= new;
+my PDF::Lite::Page $page = $pdf.add-page;
 $page.graphics: {
     .text: {  # start a text block
         .CharSpacing = 1.0;     # show text with wide spacing
         # Set the font to twelve point helvetica
-        my $face = .core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
+        my $face = $pdf.core-font( :family<Helvetica>, :weight<bold>, :style<italic> );
         .font = [ $face, 10 ];
         .TextLeading = 12; # new-line advances 12 points
         .text-position = 10, 20;
