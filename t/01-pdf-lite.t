@@ -25,8 +25,6 @@ $page.graphics: {
 # should wrap this in 'q' .. 'Q' when re-read
 $page.gfx.strict = False;
 $page.gfx.SetStrokeRGB(.3, .4, .5);
-todo "PDF::Content v0.4.3+ required to pass this test"
-    unless PDF::Content.^ver >= v0.4.3;
 is-json-equiv $page.gfx.content-dump.head(8).list, (
     "BT",
     "1 0 0 1 200 200 Tm",
@@ -47,8 +45,6 @@ lives-ok { $pdf.save-as("t/01-pdf-lite.pdf") }, 'save-as';
 throws-like { $pdf.unknown-method }, X::Method::NotFound, message => "No such method 'unknown-method' for invocant of type 'PDF::Lite'", '$pdf unknown method';
 
 lives-ok { $pdf = PDF::Lite.open("t/01-pdf-lite.pdf") }, 'open';
-todo "PDF::Content v0.4.3+ required to pass this test"
-    unless PDF::Content.^ver >= v0.4.3;
 is-json-equiv $pdf.page(1).render.content-dump.head(8).list, (
     "q",
     "BT",
@@ -61,7 +57,7 @@ is-json-equiv $pdf.page(1).render.content-dump.head(8).list, (
     ), 'reloaded graphics (head)';
 
 is-json-equiv $pdf.page(1).gfx.ops.tail(2).list, (
-    :RG[:real(.3), :real(.4), :real(.5)],
+    :RG[.3, .4, .5],
     :Q[],), 'reloaded graphics (tail)';
 
 done-testing;

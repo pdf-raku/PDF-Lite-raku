@@ -1,6 +1,6 @@
 use v6;
 
-use PDF:ver(v0.4.1+);
+use PDF;
 use PDF::Content::Interface;
 
 #| A minimal class for manipulating PDF graphical content
@@ -15,7 +15,6 @@ class PDF::Lite:ver<0.0.11>
     use PDF::COS::Stream;
     use PDF::COS::Util :from-ast;
 
-    use PDF::Content:ver(v0.1.0+);
     use PDF::Content::Font;
     use PDF::Content::Font::CoreFont;
     use PDF::Content::Canvas;
@@ -121,7 +120,7 @@ class PDF::Lite:ver<0.0.11>
     }
     PDF::COS.loader = Loader;
 
-    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box use-font rotate> { self.Root.Pages }
+    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box use-font rotate iterate-pages> { self.Root.Pages }
 
     # restrict to to PDF format; avoid FDF etc
     method open(|c) { nextwith( :type<PDF>, |c); }
