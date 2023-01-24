@@ -123,6 +123,6 @@ class PDF::Lite:ver<0.0.12>
     method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box use-font rotate iterate-pages> { self.Root.Pages }
 
     # restrict to to PDF format; avoid FDF etc
-    method open(|c) { nextwith( :type<PDF>, |c); }
+    method open(|c) is hidden-from-backtrace { nextwith( :type<PDF>, |c); }
 
 }
