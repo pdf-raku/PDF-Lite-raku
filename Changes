@@ -2,7 +2,7 @@ Revision history for PDF-Lite
 
 {{$NEXT}}
 
-0.0.12  2023-03-14T09:23:36+13:00
+0.0.13  2023-03-14T09:26:21+13:00
    - Fix rotate() method on PDF pages. Thanks Tom Browder.
 
 0.0.12  2022-06-09T10:23:00+12:00
