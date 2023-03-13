@@ -1,7 +1,9 @@
 Revision history for PDF-Lite
 
 {{$NEXT}}
-   - Fix rotate() method on PDF pages
+
+0.0.12  2023-03-14T09:23:36+13:00
+   - Fix rotate() method on PDF pages. Thanks Tom Browder.
 
 0.0.12  2022-06-09T10:23:00+12:00
    - Adjust tests for PDF::Content 0.6.4+ simplified ops AST
