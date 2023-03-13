@@ -24,6 +24,8 @@ class PDF::Lite:ver<0.0.12>
     use PDF::Content::ResourceDict;
     use PDF::Content::XObject;
 
+    my subset NinetyDegreeAngle of Int where { $_ %% 90}
+
     class XObject is PDF::COS::Stream {}
 
     class Font is PDF::COS::Dict does PDF::Content::Font {
@@ -63,9 +65,7 @@ class PDF::Lite:ver<0.0.12>
         has Numeric @.BleedBox is entry(:len(4));
         has Numeric @.TrimBox  is entry(:len(4));
         has Numeric @.ArtBox   is entry(:len(4));
-
-        my subset NinetyDegreeAngle of Int where { $_ %% 90}
-        has NinetyDegreeAngle $.Rotate is entry(:inherit);
+        has NinetyDegreeAngle $.Rotate is entry(:inherit, :alias<rotate>);
 
         has PDF::COS::Stream @.Contents is entry(:array-or-item);
     }
@@ -79,6 +79,7 @@ class PDF::Lite:ver<0.0.12>
         has ResourceDict $.Resources is entry(:inherit);
         has Numeric @.MediaBox is entry(:inherit,:len(4));
         has Numeric @.CropBox  is entry(:inherit,:len(4));
+        has NinetyDegreeAngle $.Rotate is entry(:inherit, :alias<rotate>);
 
         has PDF::Content::PageNode @.Kids is entry(:required, :indirect);
         has UInt $.Count                  is entry(:required);
