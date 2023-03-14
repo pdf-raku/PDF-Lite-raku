@@ -1,11 +1,12 @@
 use v6;
 
-use PDF;
-use PDF::Content::Interface;
-
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.13>
-    is PDF does PDF::Content::Interface {
+class PDF::Lite:ver<0.0.13> {
+    use PDF;
+    use PDF::Content::API;
+
+    also is PDF;
+    also does PDF::Content::API;
 
     use PDF::COS;
     use PDF::COS::Tie;
@@ -97,11 +98,6 @@ class PDF::Lite:ver<0.0.13>
 
     has Catalog $.Root is entry(:required, :indirect);
 
-    has PDF::Content::Font::CoreFont::Cache $!cache .= new;
-    method core-font(|c) {
-        PDF::Content::Font::CoreFont.load-font(:$!cache, |c);
-    }
-
     method cb-init {
         self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
     }
@@ -121,7 +117,7 @@ class PDF::Lite:ver<0.0.13>
     }
     PDF::COS.loader = Loader;
 
-    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box use-font rotate iterate-pages> { self.Root.Pages }
+    method Pages returns Pages handles <page pages add-page add-pages delete-page insert-page page-count media-box crop-box bleed-box trim-box art-box bleed use-font rotate iterate-pages> { self.Root.Pages }
 
     # restrict to to PDF format; avoid FDF etc
     method open(|c) is hidden-from-backtrace { nextwith( :type<PDF>, |c); }

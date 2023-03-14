@@ -1,6 +1,7 @@
 Revision history for PDF-Lite
 
 {{$NEXT}}
+   - Implement bleed() to conform with PDF::Content::API
 
 0.0.13  2023-03-14T09:26:21+13:00
    - Fix rotate() method on PDF pages. Thanks Tom Browder.
