@@ -1,6 +1,8 @@
 Revision history for PDF-Lite
 
 {{$NEXT}}
+
+0.0.14  2023-03-15T08:46:20+13:00
    - Implement bleed() to conform with PDF::Content::API
 
 0.0.13  2023-03-14T09:26:21+13:00

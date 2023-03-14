@@ -1,7 +1,7 @@
 use v6;
 
 #| A minimal class for manipulating PDF graphical content
-class PDF::Lite:ver<0.0.13> {
+class PDF::Lite:ver<0.0.14> {
     use PDF;
     use PDF::Content::API;
 
