@@ -181,6 +181,33 @@ The companion module [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loa
 
 ![example.pdf](examples/.previews/fonts-001.png)
 
+## Page sizes
+
+The `media-box` method is used most commonly used to set page sizes. It can be set on the `PDF::Lite` object to set a default page size.
+
+Individual pages can bee given different page sizes.
+
+```
+use v6;
+use PDF::Lite;
+use PDF::Content::Page :PageSizes, :&to-landscape;
+
+my PDF::Lite $pdf .= new;
+$pdf.media-box = Letter; # Set a default page size
+
+my $page1 = $pdf.add-page;
+say $page1.media-box; # [0 0 612 792]
+
+my $page2 = $pdf.add-page;
+$page2.media-box = A4;
+say $page2.media-box; # [0 0 595 842]
+
+my $page3 = $pdf.add-page;
+$page3.media-box = to-landscape(A4);
+say $page3.media-box; # [0 0 842 595]
+
+```
+
 ## Forms and Patterns
 
 Forms are a reusable graphics component. They can be used whereever
