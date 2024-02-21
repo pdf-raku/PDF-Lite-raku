@@ -167,8 +167,8 @@ The companion module [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loa
     my PDF::Lite $pdf .= new;
     $pdf.media-box = [0, 0, 400, 120];
     my PDF::Lite::Page $page = $pdf.add-page;
-    my $noto = load-font( :file<t/fonts/NotoSans-Regular.ttf> );
-    # or find a system font by family and attributes (also requires fontconfig)
+    my $noto = load-font: :file<t/fonts/NotoSans-Regular.ttf>;
+    # or find a system font by family and attributes (also requires FontConfig)
     # $noto = load-font: :family<NotoSans>, :weight<book>;
 
     $page.text: {
@@ -185,7 +185,7 @@ The companion module [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loa
 
 The `media-box` method is used most commonly used to set page sizes. It can be set on the `PDF::Lite` object to set a default page size.
 
-Individual pages can bee given different page sizes.
+Individual pages can be given different page sizes.
 
 ```
 use v6;
