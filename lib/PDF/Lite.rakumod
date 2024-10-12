@@ -13,6 +13,7 @@ class PDF::Lite:ver<0.0.14> {
     use PDF::COS::Tie::Hash;
     use PDF::COS::Loader;
     use PDF::COS::Dict;
+    use PDF::COS::Name;
     use PDF::COS::Stream;
     use PDF::COS::Util :from-ast;
 
@@ -26,6 +27,7 @@ class PDF::Lite:ver<0.0.14> {
     use PDF::Content::XObject;
 
     my subset NinetyDegreeAngle of Int where { $_ %% 90}
+    sub name(PDF::COS::Name() $_) { $_ }
 
     class XObject is PDF::COS::Stream {}
 
@@ -99,7 +101,7 @@ class PDF::Lite:ver<0.0.14> {
     has Catalog $.Root is entry(:required, :indirect);
 
     method cb-init {
-        self<Root> //= { :Type( :name<Catalog> ), :Pages{ :Type( :name<Pages> ), :Kids[], :Count(0), } };
+        self<Root> //= { :Type( name('Catalog') ), :Pages{ :Type( name('Pages') ), :Kids[], :Count(0), } };
     }
 
     my class Loader is PDF::COS::Loader {
