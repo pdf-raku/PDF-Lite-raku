@@ -114,7 +114,7 @@ class PDF::Lite:ver<0.0.14> {
         multi method load-delegate(Hash :$dict! where { from-ast($_) == 1 with .<PatternType> }) {
             Tiling-Pattern
         }
-        method pdf-class { PDF::Lite }
+        method target-class { 'PDF::Lite' }
     }
     PDF::COS.loader = Loader;
 
