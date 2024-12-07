@@ -158,7 +158,7 @@ $pdf.save-as: "examples/text-effects.pdf";
 
 ## Fonts
 
-This module has build-in support for the PDF core fonts: Courier, Times, Helvetica, ZapfDingbats and Symbol.
+This module has built-in support for the PDF core fonts: Courier, Times, Helvetica, ZapfDingbats and Symbol.
 
 The companion module [PDF::Font::Loader](https://pdf-raku.github.io/PDF-Font-Loader-raku) can be used to access a wider range of fonts:
 
@@ -210,7 +210,7 @@ say $page3.media-box; # [0 0 842 595]
 
 ## Forms and Patterns
 
-Forms are a reusable graphics component. They can be used whereever
+Forms are a reusable graphics component. They can be used wherever
 images can be used.
 
 A pattern can be used to fill an area with a repeating graphic.
