@@ -18,11 +18,11 @@
   },
   "resources": [
   ],
-  "source-url": "git://github.com/pdf-raku/PDF-Lite-raku.git",
+  "source-url": "https://github.com/pdf-raku/PDF-Lite-raku.git",
   "tags": [
     "pdf"
   ],
   "test-depends": [
   ],
-  "version": "0.0.14"
+  "version": "0.0.15"
 }
