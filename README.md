@@ -67,7 +67,7 @@ $page.text: -> $txt {
             
     $txt.font = $font, 12;
     # output text with left, top corner at (20, 100)
-    my @box = $txt.say: $text, :$width, :position[:left(20), :top(100)];
+    my @box = $txt.say: $text, :$width, :position[20, 100];
     note "text height: {@box[y1] - @box[y0]}";
 
     # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
