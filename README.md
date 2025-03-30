@@ -61,8 +61,8 @@ $page.text: -> $txt {
     $txt.say: 'Some Sample PDF::Lite Text', :align<center>, :valign<bottom>;
     my $width := 200;
     my $text = q:to"--END--";
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    ut labore et dolore magna aliqua.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
     --END--
             
     $txt.font = $font, 12;
@@ -70,11 +70,11 @@ $page.text: -> $txt {
     my @box = $txt.say: $text, :$width, :position[20, 100];
     note "text height: {@box[y1] - @box[y0]}";
 
-    # output kerned paragraph, flow from right to left, right, top edge at (450, 100)
-    $txt.say( $text, :$width, :height(150), :align<right>, :kern, :position[450, 100] );
+    # output kerned paragraph, top-left edge at (450, 100)
+    $txt.say: $text, :$width, :height(150), :align<right>, :kern, :position[450, 100];
     # add another line of text, flowing on to the next line
     $txt.font = $pdf.core-font( :family<Helvetica>, :weight<bold> ), 12;
-    $txt.say( "But wait, there's more!!", :align<right>, :kern );
+    $txt.say: "But wait, there's more!!", :align<right>, :kern;
 }
 
 $pdf.save-as: "examples/sample-text.pdf";
@@ -144,7 +144,7 @@ $page.graphics: {
 	.font = ( $header-font, 18);
 	.TextRender = TextMode::FillOutlineText;
 	.LineWidth = .5;
-        .text-transform( :skew[0, -6], :translate[10, 30] );
+        .text-transform: :skew[0, -6], :translate[10, 30];
 	.FillColor = rgb(.6, .7, .9);
 	.print('Outline Slanted Text @(10,30)');
     }
@@ -469,7 +469,7 @@ my $gfx = $pdf.page(1).render(:&callback);
 
 - [PDF::API6 Graphics Documentation](https://pdf-raku.github.io/PDF-API6#readme) for a fuller description of methods, operators and graphics variables, which are also applicable to this module. In particular:
 
-    - [Section II: Content Methods](https://pdf-raku.github.io/PDF-API6#section-ii-content-methods-inherited-from-pdfclass) for a description of available content methods.
+    - [Section II: Content Methods](https://pdf-raku.github.io/PDF-API6#section-ii-content-methods-role-pdfcontentapi) for a description of available content methods.
 
     - [Appendix I - Graphics](https://pdf-raku.github.io/PDF-API6#appendix-i-graphics) for a description of available operators and graphics.
 
