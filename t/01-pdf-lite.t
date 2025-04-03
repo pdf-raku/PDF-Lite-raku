@@ -38,7 +38,7 @@ is-json-equiv $page.gfx.content-dump.head(8).list, (
     'presave graphics (head)';
 
 # ensure consistant document ID generation
-$pdf.id = $*PROGRAM-NAME.fmt('%-16s').substr(0,16);
+$pdf.id = $*PROGRAM.basename.fmt('%-16s').substr(0,16);
 
 lives-ok { $pdf.save-as("t/01-pdf-lite.pdf") }, 'save-as';
 
